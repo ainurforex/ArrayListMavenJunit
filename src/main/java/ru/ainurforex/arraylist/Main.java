@@ -112,7 +112,6 @@ public class Main {
         for (int i = 0; i < newArrayList.length; i++) {
             System.out.print(newArrayList[i] + " ");
         }
-
         System.out.println(" ");
         System.out.println(" ");
         System.out.println("StringList");
