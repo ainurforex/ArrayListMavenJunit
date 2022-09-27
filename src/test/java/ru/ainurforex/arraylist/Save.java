@@ -1,63 +1,41 @@
 package ru.ainurforex.arraylist;
+public class Save {}
 
-import ru.ainurforex.arraylist.exceptions.*;
-import ru.ainurforex.arraylist.exceptions.ArrayIndexOutOfBoundsException;
-
-import java.util.Arrays;
-
-public class StringList implements StringListInterface {
-    private String[] arrayList;
-    private int size;
-
-    public StringList() {
-        size = 0;
-        arrayList = new String[10];
-    }
-
-    public StringList(int initSize) {
-        size = 0;
-        arrayList = new String[initSize];
-    }
-
-    @Override
-    public String toString() {
-        String arrayString = "";
-        if (size == 0) {
-            return null;
-        }
-        for (int i = 0; i < size; i++) {
-            arrayString = arrayString + arrayList[i] + " ";
-        }
-        return arrayString;
-    }
-
+/*
+public class Save {
     @Override
     public String add(String item) {
-        validateSize();
         validateItem(item);
-        arrayList[size++] = item;
-        return item;
+        if (size() == 0) {
+            arrayList = new String[1];
+            arrayList[0] = item;
+            return item;
+        } else {
+            String[] arrayListCopy = arrayList;
+            int arrayListSize = arrayList.length;
+            arrayList = new String[arrayListSize + 1];
+            System.arraycopy(arrayListCopy, 0, arrayList, 0, arrayListCopy.length);
+            arrayList[arrayList.length - 1] = item;
+            return item;
+        }
+
     }
 
     @Override
     public String add(int index, String item) {
-        validateSize();
         validateItem(item);
         validateIndex(index);
-        if (index == size) {
-            arrayList[size++] = item;
-            return item;
-        }
-
-        System.arraycopy(arrayList, index, arrayList, index + 1, size - index);
+        String[] arrayListCopy = arrayList;
+        int arrayListSize = arrayList.length;
+        arrayList = new String[arrayListSize + 1];
+        System.arraycopy(arrayListCopy, 0, arrayList, 0, index);
+        System.arraycopy(arrayListCopy, index, arrayList, index + 1, arrayListCopy.length - index);
         arrayList[index] = item;
-        size++;
         return item;
     }
 
     @Override
     public String set(int index, String item) {
-        validateSize();
         validateItem(item);
         validateIndex(index);
         arrayList[index] = item;
@@ -66,27 +44,27 @@ public class StringList implements StringListInterface {
 
     @Override
     public String remove(String item) {
-        validateItem(item);
         int index = indexOf(item);
         if (index == -1) {
             throw new NotSuchElementException();
         }
-
-        if (index != size) {
-            System.arraycopy(arrayList, index + 1, arrayList, index, size - index);
-        }
-        size--;
+        String[] arrayListCopy = arrayList;
+        int arrayListSize = arrayList.length;
+        arrayList = new String[arrayListSize - 1];
+        System.arraycopy(arrayListCopy, 0, arrayList, 0, index);
+        System.arraycopy(arrayListCopy, index + 1, arrayList, index, arrayListCopy.length - index - 1);
         return item;
     }
 
     @Override
     public String remove(int index) {
         validateIndex(index);
-        String item = arrayList[index];
-        if (index != size) {
-            System.arraycopy(arrayList, index + 1, arrayList, index, size - index);
-        }
-        size--;
+        String item = get(index);
+        String[] arrayListCopy = arrayList;
+        int arrayListSize = arrayList.length;
+        arrayList = new String[arrayListSize - 1];
+        System.arraycopy(arrayListCopy, 0, arrayList, 0, index);
+        System.arraycopy(arrayListCopy, index + 1, arrayList, index, arrayListCopy.length - index - 1);
         return item;
     }
 
@@ -97,7 +75,7 @@ public class StringList implements StringListInterface {
 
     @Override
     public int indexOf(String item) {
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < arrayList.length; i++) {
             if (arrayList[i].equals(item)) {
                 return i;
             }
@@ -123,15 +101,28 @@ public class StringList implements StringListInterface {
 
     @Override
     public boolean equals(StringListInterface otherList) {
-        if (otherList.toString() == null) {
+        if (otherList.size() == 0 || size() == 0) {
             throw new ArrayListIsEmptyException();
         }
-        return Arrays.equals(this.toArray(), otherList.toArray());
+        if (arrayList.length != otherList.size()) {
+            return false;
+        }
+
+        for (int i = 0; i < arrayList.length; i++) {
+            if (!get(i).equals(otherList.get(i))) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     @Override
     public int size() {
-        return size;
+        if (arrayList == null) {
+            return 0;
+        }
+        return arrayList.length;
     }
 
     @Override
@@ -141,7 +132,7 @@ public class StringList implements StringListInterface {
 
     @Override
     public void clear() {
-        size = 0;
+        arrayList = null;
     }
 
     @Override
@@ -150,21 +141,15 @@ public class StringList implements StringListInterface {
     }
 
 
+
     private void validateIndex(int index) {
-        if (index > size - 1 || index < 0) {
+        if (index > arrayList.length - 1 || index < 0) {
             throw new ArrayIndexOutOfBoundsException();
         }
     }
-
     private void validateItem(String item) {
         if (item == null) {
             throw new NullItemException();
         }
-    }
-
-    private void validateSize() {
-        if (size > arrayList.length) {
-            throw new ArraySizeIsFullException();
-        }
-    }
 }
+*/

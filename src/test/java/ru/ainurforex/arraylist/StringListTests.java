@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import ru.ainurforex.arraylist.exceptions.ArrayIndexOutOfBoundsException;
 import ru.ainurforex.arraylist.exceptions.ArrayListIsEmptyException;
 import ru.ainurforex.arraylist.exceptions.NotSuchElementException;
+import ru.ainurforex.arraylist.exceptions.NullItemException;
 
 import static ru.ainurforex.arraylist.Constants.*;
 
@@ -75,6 +76,12 @@ public class StringListTests {
                 stringListExcepted.add(-1, D3));
     }
 
+    @Test
+    public void shouldThrowNullItemExceptionByAddNullItem() {
+        StringList stringList = new StringList();
+        Assertions.assertThrows(NullItemException.class, () ->
+                stringList.add(null));
+    }
 
     @Test
     public void shouldSetItemInIndex() {
@@ -286,14 +293,10 @@ public class StringListTests {
 
     @Test
     public void shouldThrowArrayListIsEmptyExceptionByEqualsByArrayListIsEmpty() {
-        StringList stringListOne = new StringList();
-        StringList stringListTwo = initialStringList();
+        StringList stringListNull = new StringList();
+        StringList stringList = initialStringList();
         Assertions.assertThrows(ArrayListIsEmptyException.class, () ->
-                stringListOne.equals(stringListTwo));
-        StringList stringListThree = initialStringList();
-        StringList stringListFour = new StringList();
-        Assertions.assertThrows(ArrayListIsEmptyException.class, () ->
-                stringListThree.equals(stringListFour));
+                stringList.equals(stringListNull));
     }
 
     private static String arrayToString(String[] array) {
