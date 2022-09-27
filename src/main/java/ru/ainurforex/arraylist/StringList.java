@@ -15,7 +15,7 @@ public class StringList implements StringListInterface {
     }
 
     public StringList(int initSize) {
-        size = 0;
+        size =0;
         arrayList = new String[initSize];
     }
 
@@ -163,8 +163,10 @@ public class StringList implements StringListInterface {
     }
 
     private void validateSize() {
-        if (size > arrayList.length) {
-            throw new ArraySizeIsFullException();
+        if (size == arrayList.length) {
+            String[]arrayListCopy=arrayList;
+            arrayList=new String[size+1+Math.abs(size/3)];
+           System.arraycopy(arrayListCopy, 0, arrayList, 0, arrayListCopy.length);
         }
     }
 }

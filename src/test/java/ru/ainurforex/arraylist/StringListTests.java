@@ -3,10 +3,8 @@ package ru.ainurforex.arraylist;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import ru.ainurforex.arraylist.exceptions.*;
 import ru.ainurforex.arraylist.exceptions.ArrayIndexOutOfBoundsException;
-import ru.ainurforex.arraylist.exceptions.ArrayListIsEmptyException;
-import ru.ainurforex.arraylist.exceptions.NotSuchElementException;
-import ru.ainurforex.arraylist.exceptions.NullItemException;
 
 import static ru.ainurforex.arraylist.Constants.*;
 
@@ -297,6 +295,16 @@ public class StringListTests {
         StringList stringList = initialStringList();
         Assertions.assertThrows(ArrayListIsEmptyException.class, () ->
                 stringList.equals(stringListNull));
+    }
+
+    @Test
+    public void shoulResizeArrayByAddItem() {
+        StringList stringList = new StringList(1);
+        stringList.add(A0);
+        stringList.add(B1);
+        stringList.add(C2);
+        stringList.add(D3);
+        Assertions.assertEquals(4, stringList.size());
     }
 
     private static String arrayToString(String[] array) {
