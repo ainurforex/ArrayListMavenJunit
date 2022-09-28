@@ -251,11 +251,14 @@ public class StringListTests {
     }
 
     @Test
-    public void shouldStringArrayToArrayList() {
+    public void shouldToArray() {
         StringList stringListExcepted = initialStringList();
+        stringListExcepted.add(D3);
+        stringListExcepted.remove(D3);
+
         String[] actualArrayString = {A0, B1, C2};
 
-        Assertions.assertEquals(arrayToString(actualArrayString), stringListExcepted.toString());
+        Assertions.assertEquals(arrayToString(actualArrayString), arrayToString(stringListExcepted.toArray()));
     }
 
     @Test

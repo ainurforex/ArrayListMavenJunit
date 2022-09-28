@@ -146,7 +146,9 @@ public class StringList implements StringListInterface {
 
     @Override
     public String[] toArray() {
-        return arrayList;
+        String[]result=new String[size];
+        System.arraycopy(arrayList,0,result,0,size);
+        return result;
     }
 
 
